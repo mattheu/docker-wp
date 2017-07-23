@@ -6,15 +6,17 @@ services:
     - "8080:80"
     volumes:
     - ./www:/srv/www
-    - ./docker/config/nginx-default.conf:/etc/nginx/conf.d/default.conf
+    - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    restart: always
   php:
     build:
       context: .
       dockerfile: ./docker/php/Dockerfile
     volumes:
     - ./www:/srv/www
-    - ./docker/config/php.ini:/usr/local/etc/php/php.ini
-  mariadb:
+    - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+    restart: always
+  db:
     image: mariadb
     restart: always
     environment:
@@ -24,3 +26,4 @@ services:
      - MYSQL_DATABASE=wordpress
     volumes:
      - ./database:/var/lib/mysql
+    restart: always
