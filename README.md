@@ -7,6 +7,9 @@ A really basic WP docker environment. Basically it is just Nginx, PHP, MySQL wit
 
 - The `www` directory is shared with the PHP docker container. This is your public directory. You can clone your project here.
 - run `docker-compose up -d`
+- Visit `http://localhost:8080` in your browser.
+
+## Database.
 
 DB settings. Use these in your wp-config.php to connect to the DB.
 
@@ -16,6 +19,13 @@ define('DB_USER', 'root');
 define('DB_PASSWORD', 'root');
 define('DB_HOST', 'db');
 ```
+
+The database directory is mounted to `/database`, which ensures you don't lose your data when you stop or destroy your containers.
+
+There are also some scripts that you can run to backup and restore from and to the file `./db-backup.sql`.
+
+* To save a backup to `./db-backup.sql`, run `sh ./docker/scripts/db-dump.sh $DB_CONTAINER` where `$DB_CONTAINER` is the name or ID of the database container.
+* To restore the database from the file `./db-backup.sql`, run `sh ./docker/scripts/db-restore.sh $DB_CONTAINER` where `$DB_CONTAINER` is the name or ID of the database container.
 
 ## Memcached
 
