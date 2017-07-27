@@ -1,7 +1,9 @@
 FROM php:7-fpm-alpine
 
+RUN apk update && apk upgrade;
+
 # Install some general stuff.
-RUN apk add --no-cache sudo bash sed less ncurses git
+RUN apk add --no-cache sudo bash sed less ncurses git wget gcc autoconf grep;
 
 # Install PHP extensions we need.
 # gd, mysqli opcache.
@@ -19,12 +21,15 @@ RUN set -ex; \
 			| sort -u \
 	)"; \
 	apk add --virtual .wordpress-phpexts-rundeps $runDeps; \
-	apk del .build-deps
+	apk del .build-deps;
+
+# PHPUnit
+RUN wget https://phar.phpunit.de/phpunit.phar && \
+	chmod +x phpunit.phar && \
+	sudo mv phpunit.phar /usr/local/bin/phpunit;
 
 # Install Memcached
 RUN set -xe \
-	&& apk update \
-	&& apk upgrade \
 	&& apk add --no-cache libmemcached-dev zlib-dev cyrus-sasl-dev \
 	&& docker-php-source extract \
 	&& git clone --branch php7 https://github.com/php-memcached-dev/php-memcached.git /usr/src/php/ext/memcached/ \
@@ -38,3 +43,15 @@ RUN set -xe \
 RUN curl -o /bin/wp-cli.phar https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 COPY docker/php/wp-su.sh /bin/wp
 RUN chmod +x /bin/wp-cli.phar /bin/wp
+
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer;
+
+# Gmagick. But I cannot get this one working :)
+# apk add --update git nano grep sed curl wget tar gzip pcre perl openssh patch patchutils diffutils;
+# RUN echo 'http://dl-4.alpinelinux.org/alpine/edge/main' >> /etc/apk/repositories && \
+# 	echo 'http://dl-4.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories && \
+# 	apk add --no-cache imagemagick-dev graphicsmagick-dev && \
+# 	pecl install gmagick-2.0.4RC1;
+# echo '@testing http://nl.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
+# echo '@community http://nl.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories && \

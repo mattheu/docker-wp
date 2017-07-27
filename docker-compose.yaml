@@ -11,7 +11,7 @@ services:
   php:
     build:
       context: .
-      dockerfile: ./docker/php/Dockerfile
+      dockerfile: ./docker/php/Dockerfile-alpine
     volumes:
     - ./www:/var/www/html
     - ./docker/php/php.ini:/usr/local/etc/php/php.ini

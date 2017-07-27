@@ -1,0 +1,40 @@
+FROM php:7-fpm
+
+RUN apt-get update;
+RUN apt-get -y install git wget;
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get update -q \
+    && DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -y \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libmcrypt-dev \
+        libpng12-dev \
+        libcurl4-nss-dev \
+    && docker-php-ext-install mcrypt \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install gd \
+    && docker-php-ext-install curl \
+    && docker-php-ext-install mysqli \
+    && docker-php-ext-install zip;
+
+# Memcached
+RUN apt-get install -y libmemcached-dev --fix-missing \
+	&& docker-php-source extract \
+ 	&& git clone --branch php7 https://github.com/php-memcached-dev/php-memcached.git /usr/src/php/ext/memcached/ \
+	&& docker-php-ext-configure memcached \
+	&& docker-php-ext-install memcached \
+	&& docker-php-source delete;
+
+# WP-CLI
+RUN curl -o /bin/wp-cli.phar https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+COPY docker/php/wp-su.sh /bin/wp
+RUN chmod +x /bin/wp-cli.phar /bin/wp
+
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer;
+
+# PHPUnit
+RUN wget https://phar.phpunit.de/phpunit.phar && \
+	chmod +x phpunit.phar && \
+	sudo mv phpunit.phar /usr/local/bin/phpunit;
