@@ -27,6 +27,8 @@ services:
     volumes:
      - ./database:/var/lib/mysql
     restart: always
+    ports:
+      - "3306:3306"
   memcached:
     image: memcached:alpine
     ports:
