@@ -27,6 +27,10 @@ There are also some scripts that you can run to backup and restore from and to t
 * To save a backup to `./db-backup.sql`, run `sh ./docker/scripts/db-dump.sh $DB_CONTAINER` where `$DB_CONTAINER` is the name or ID of the database container.
 * To restore the database from the file `./db-backup.sql`, run `sh ./docker/scripts/db-restore.sh $DB_CONTAINER` where `$DB_CONTAINER` is the name or ID of the database container.
 
+You can access the database using an app like [Sequel Pro](https://www.sequelpro.com/). Use the following settings:
+
+Type: `TC/IP` Host: `127.0.0.1` Username: `root`, Password: `root` port: `3306`.
+
 ## Memcached
 
 Memcached is installed. To use it, you should note that it is a separate container. If you are using the [Human Made memcached drop-in (as included in hm-platform)](https://github.com/humanmade/wordpress-pecl-memcached-object-cache), then you will need to set the value of `$memcached_servers` to the following in your wp-config.php.
