@@ -18,6 +18,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -q \
     && docker-php-ext-install mysqli \
     && docker-php-ext-install zip;
 
+RUN apt-get install -y libgraphicsmagick1-dev && pecl install gmagick-2.0.4RC1;
+
 # Memcached
 RUN apt-get install -y libmemcached-dev --fix-missing \
 	&& docker-php-source extract \
@@ -37,4 +39,4 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # PHPUnit
 RUN wget https://phar.phpunit.de/phpunit.phar && \
 	chmod +x phpunit.phar && \
-	sudo mv phpunit.phar /usr/local/bin/phpunit;
+	mv phpunit.phar /usr/local/bin/phpunit;
