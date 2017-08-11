@@ -45,6 +45,10 @@ $memcached_servers = [
 ];
 ```
 
+## PHPUnit
+
+[There is some more info on running PHP unit tests on the wiki.](https://github.com/mattheu/docker-wp/wiki/PHPUnit)
+
 ## WP-CLI
 
 You can run WP-CLI commands on the PHP container like so.
