@@ -15,6 +15,7 @@ services:
     image: mattheu/php
     volumes:
     - ./www:/var/www/html
+    - ./wp-test:/tmp/wp-test
     - ./docker/php/php.ini:/usr/local/etc/php/php.ini
     restart: always
   db:
