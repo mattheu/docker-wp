@@ -57,7 +57,6 @@ You can run WP-CLI commands on the PHP container like so.
 
 ## TODO
 
-- PHPUnit.
 - xdebug
 - ImageMagick/Gmagick.
 - map domains
