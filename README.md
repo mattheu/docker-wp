@@ -9,6 +9,10 @@ A really basic WP docker environment. Basically it is just Nginx, PHP, MySQL wit
 - run `docker-compose up -d`
 - Visit `http://localhost:8080` in your browser.
 
+## Changing Ports.
+
+You can customize the ports used by both the `web` container and the `db` container. These use the environment variables `WEB_PORT` and `DB_PORT`. By default they are `8080` and `3306`, but if you want to run multiple environments alongside each other, you will need to customize these.
+
 ## Database.
 
 DB settings. Use these in your wp-config.php to connect to the DB.
