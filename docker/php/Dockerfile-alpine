@@ -3,7 +3,7 @@ FROM php:7-fpm-alpine
 RUN apk update && apk upgrade;
 
 # Install some general stuff.
-RUN apk add --no-cache sudo bash sed less ncurses git wget gcc autoconf grep;
+RUN apk add --no-cache sudo curl wget bash sed less ncurses git subversion zip unzip tar gcc autoconf grep nano composer;
 
 # Install PHP extensions we need.
 # gd, mysqli opcache.
@@ -48,7 +48,7 @@ RUN chmod +x /bin/wp-cli.phar /bin/wp
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer;
 
 # Gmagick. But I cannot get this one working :)
-# apk add --update git nano grep sed curl wget tar gzip pcre perl openssh patch patchutils diffutils;
+# apk add --no-cache --update gzip pcre perl openssh patch patchutils diffutils;
 # RUN echo 'http://dl-4.alpinelinux.org/alpine/edge/main' >> /etc/apk/repositories && \
 # 	echo 'http://dl-4.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories && \
 # 	apk add --no-cache imagemagick-dev graphicsmagick-dev && \

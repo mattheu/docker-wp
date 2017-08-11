@@ -1,7 +1,7 @@
 FROM php:7-fpm
 
 RUN apt-get update;
-RUN apt-get -y install git wget;
+RUN apt-get -y install git wget sudo nano zip unzip subversion composer;
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -q \
     && DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -y \
