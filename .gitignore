@@ -3,3 +3,4 @@
 /database
 /db-backup.sql
 /wp-test
+/.env
