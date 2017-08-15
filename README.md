@@ -16,7 +16,7 @@ By default the web container uses port `8080`, the db port `3306` and memcached 
 It is reccommended that you create a `.env` file in the project root. It should look something like this.
 
 ```
-WEB_PORT=8080
+WEB_PORT=8081
 DB_PORT=3307
 MEMCACHED_PORT=11212
 ```
