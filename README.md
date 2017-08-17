@@ -67,6 +67,10 @@ You can run WP-CLI commands on the PHP container like so.
 
 `docker exec CONTAINER wp core version`
 
+# Running Multisite or WP in a subdirectory
+
+For now, you need to customize your nginx conf to handle this. 
+
 ## TODO
 
 - xdebug
