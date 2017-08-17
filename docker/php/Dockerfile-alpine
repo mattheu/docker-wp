@@ -51,11 +51,9 @@ RUN chmod +x /bin/wp-cli.phar /bin/wp
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer;
 
-# Gmagick. But I cannot get this one working :)
-# apk add --no-cache --update gzip pcre perl openssh patch patchutils diffutils;
-# RUN echo 'http://dl-4.alpinelinux.org/alpine/edge/main' >> /etc/apk/repositories && \
-# 	echo 'http://dl-4.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories && \
-# 	apk add --no-cache imagemagick-dev graphicsmagick-dev && \
-# 	pecl install gmagick-2.0.4RC1;
-# echo '@testing http://nl.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
-# echo '@community http://nl.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories && \
+# Gmagick.
+RUN echo 'http://dl-4.alpinelinux.org/alpine/edge/main' >> /etc/apk/repositories && \
+	echo 'http://dl-4.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories && \
+	apk add --no-cache openssl libc-dev python-dev gcc make libtool libjpeg libpng libwebp && \
+	apk add --no-cache imagemagick-dev graphicsmagick-dev && \
+	printf "\n" | pecl install gmagick-2.0.4RC1;
