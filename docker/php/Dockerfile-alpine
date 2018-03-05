@@ -57,3 +57,7 @@ RUN echo 'http://dl-4.alpinelinux.org/alpine/edge/main' >> /etc/apk/repositories
 	apk add --no-cache openssl libc-dev python-dev gcc make libtool libjpeg libpng libwebp && \
 	apk add --no-cache imagemagick-dev graphicsmagick-dev && \
 	printf "\n" | pecl install gmagick-2.0.4RC1;
+
+# XDebug
+RUN pecl install xdebug-2.6.0 \
+	&& docker-php-ext-enable xdebug;
